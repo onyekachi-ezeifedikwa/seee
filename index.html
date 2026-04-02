@@ -1,0 +1,232 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); color: var(--color-text-primary); }
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 40px; border-bottom: 0.5px solid var(--color-border-tertiary); background: var(--color-background-primary); }
+  .nav-logo { font-size: 18px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { font-size: 13px; color: var(--color-text-secondary); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; }
+  .nav-links a:hover { color: var(--color-text-primary); }
+  .nav-icons { display: flex; gap: 18px; align-items: center; }
+  .nav-icons span { font-size: 13px; color: var(--color-text-secondary); cursor: pointer; letter-spacing: 1px; }
+  .hero { position: relative; background: #0a0a0a; min-height: 420px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%); }
+  .hero-grid { position: absolute; inset: 0; opacity: 0.07; background-image: linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 40px 40px; }
+  .hero-content { position: relative; text-align: center; padding: 60px 40px; }
+  .hero-badge { display: inline-block; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c9a84c; border: 0.5px solid #c9a84c; padding: 6px 16px; border-radius: 20px; margin-bottom: 24px; }
+  .hero-title { font-size: 42px; font-weight: 500; color: #ffffff; letter-spacing: 2px; line-height: 1.2; margin-bottom: 16px; }
+  .hero-title span { color: #c9a84c; }
+  .hero-sub { font-size: 15px; color: rgba(255,255,255,0.5); letter-spacing: 1px; margin-bottom: 36px; }
+  .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-gold { background: #c9a84c; color: #0a0a0a; border: none; padding: 13px 32px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; font-weight: 500; border-radius: 2px; }
+  .btn-outline { background: transparent; color: #ffffff; border: 0.5px solid rgba(255,255,255,0.4); padding: 13px 32px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 2px; }
+  .section { padding: 60px 40px; background: var(--color-background-primary); }
+  .section-alt { background: var(--color-background-secondary); }
+  .section-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c9a84c; margin-bottom: 10px; }
+  .section-title { font-size: 26px; font-weight: 500; margin-bottom: 8px; }
+  .section-sub { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 36px; }
+  .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+  .product-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; cursor: pointer; transition: border-color 0.2s; }
+  .product-card:hover { border-color: #c9a84c; }
+  .product-img { height: 180px; display: flex; align-items: center; justify-content: center; background: var(--color-background-secondary); font-size: 52px; }
+  .product-info { padding: 14px 16px; }
+  .product-tag { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #c9a84c; margin-bottom: 6px; }
+  .product-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .product-desc { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 12px; }
+  .product-footer { display: flex; justify-content: space-between; align-items: center; }
+  .product-price { font-size: 15px; font-weight: 500; }
+  .add-btn { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; background: #0a0a0a; color: #fff; border: none; padding: 7px 14px; border-radius: 2px; cursor: pointer; }
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-top: 0; }
+  .feature { padding: 24px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); background: var(--color-background-primary); }
+  .feature-icon { font-size: 22px; margin-bottom: 12px; }
+  .feature-title { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+  .feature-text { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+  .testimonial-row { display: flex; gap: 18px; overflow-x: auto; padding-bottom: 8px; }
+  .testimonial { min-width: 240px; padding: 20px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); background: var(--color-background-primary); }
+  .stars { color: #c9a84c; font-size: 13px; margin-bottom: 10px; letter-spacing: 2px; }
+  .t-text { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 14px; }
+  .t-author { font-size: 12px; font-weight: 500; }
+  .newsletter { background: #0a0a0a; padding: 52px 40px; text-align: center; }
+  .nl-title { font-size: 22px; font-weight: 500; color: #fff; margin-bottom: 8px; }
+  .nl-sub { font-size: 14px; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+  .nl-form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .nl-input { padding: 12px 20px; font-size: 13px; border: 0.5px solid rgba(255,255,255,0.2); background: transparent; color: #fff; border-radius: 2px; width: 260px; outline: none; }
+  .nl-input::placeholder { color: rgba(255,255,255,0.3); }
+  .footer { padding: 36px 40px; border-top: 0.5px solid var(--color-border-tertiary); display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; background: var(--color-background-primary); }
+  .footer-logo { font-size: 14px; letter-spacing: 3px; text-transform: uppercase; font-weight: 500; }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { font-size: 12px; color: var(--color-text-secondary); text-decoration: none; letter-spacing: 1px; cursor: pointer; }
+  .footer-copy { font-size: 12px; color: var(--color-text-secondary); }
+  .badge-new { background: #c9a84c; color: #0a0a0a; font-size: 10px; font-weight: 500; letter-spacing: 1px; padding: 3px 8px; border-radius: 2px; vertical-align: middle; margin-left: 6px; }
+  .cta-strip { background: #c9a84c; padding: 14px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .cta-strip-text { font-size: 13px; font-weight: 500; color: #0a0a0a; letter-spacing: 1px; }
+  .cta-strip-link { font-size: 12px; color: #0a0a0a; text-decoration: underline; cursor: pointer; letter-spacing: 1px; }
+</style>
+
+<div style="border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; max-width: 900px; margin: 0 auto;">
+
+  <div class="cta-strip">
+    <span class="cta-strip-text">Free shipping on orders above $150 · Worldwide delivery</span>
+    <span class="cta-strip-link">Shop now →</span>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-logo">Luxora</div>
+    <div class="nav-links">
+      <a>Collection</a>
+      <a>New Arrivals</a>
+      <a>About</a>
+      <a>Contact</a>
+    </div>
+    <div class="nav-icons">
+      <span>Search</span>
+      <span>Cart (0)</span>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">New Collection 2026</div>
+      <div class="hero-title">Premium Tech,<br><span>Elevated Living</span></div>
+      <div class="hero-sub">Curated electronics for the discerning few</div>
+      <div class="hero-btns">
+        <button class="btn-gold" onclick="sendPrompt('Show me how to add products to this shop website')">Explore Collection</button>
+        <button class="btn-outline">Our Story</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Featured Products</div>
+    <div class="section-title">Crafted for Precision</div>
+    <div class="section-sub">Each product is selected for quality, design, and performance</div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img">⌚</div>
+        <div class="product-info">
+          <div class="product-tag">Wearables</div>
+          <div class="product-name">Apex Watch Pro <span class="badge-new">New</span></div>
+          <div class="product-desc">Titanium body · AMOLED · 7-day battery</div>
+          <div class="product-footer">
+            <div class="product-price">$489</div>
+            <button class="add-btn">Add</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">🎧</div>
+        <div class="product-info">
+          <div class="product-tag">Audio</div>
+          <div class="product-name">Velour ANC Elite</div>
+          <div class="product-desc">Adaptive noise cancel · 40hr playback</div>
+          <div class="product-footer">
+            <div class="product-price">$329</div>
+            <button class="add-btn">Add</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">💻</div>
+        <div class="product-info">
+          <div class="product-tag">Computing</div>
+          <div class="product-name">Studio Slate X <span class="badge-new">New</span></div>
+          <div class="product-desc">M4 chip · 16GB · Midnight finish</div>
+          <div class="product-footer">
+            <div class="product-price">$1,299</div>
+            <button class="add-btn">Add</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">📷</div>
+        <div class="product-info">
+          <div class="product-tag">Imaging</div>
+          <div class="product-name">Lumis Compact II</div>
+          <div class="product-desc">50MP · AI-enhanced · Weather sealed</div>
+          <div class="product-footer">
+            <div class="product-price">$749</div>
+            <button class="add-btn">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section section-alt">
+    <div class="section-label">Why Luxora</div>
+    <div class="section-title">The Difference Is in the Details</div>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">✦</div>
+        <div class="feature-title">Curated Selection</div>
+        <div class="feature-text">Every item passes a 12-point quality review before joining our collection.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">◈</div>
+        <div class="feature-title">White-Glove Delivery</div>
+        <div class="feature-text">Premium packaging, insured shipping, and real-time tracking worldwide.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">◇</div>
+        <div class="feature-title">2-Year Warranty</div>
+        <div class="feature-text">Extended warranty coverage on all electronics. No questions asked.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⬡</div>
+        <div class="feature-title">Expert Support</div>
+        <div class="feature-text">Dedicated concierge support available 24/7 for all customers.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Reviews</div>
+    <div class="section-title">Loved by Thousands</div>
+    <div class="section-sub">Real experiences from our global community</div>
+    <div class="testimonial-row">
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="t-text">"The packaging alone felt like opening a gift. The watch exceeded every expectation."</div>
+        <div class="t-author">— Amara J., Lagos</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="t-text">"Fastest delivery I've experienced. The headphones are absolutely world-class."</div>
+        <div class="t-author">— David K., London</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="t-text">"Finally a tech shop that feels as premium as the products it sells."</div>
+        <div class="t-author">— Priya M., Dubai</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="t-text">"Customer support was exceptional. Resolved my query within 10 minutes."</div>
+        <div class="t-author">— Carlos R., São Paulo</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="newsletter">
+    <div class="nl-title">Stay in the Loop</div>
+    <div class="nl-sub">Early access to new arrivals, exclusive deals, and tech insights</div>
+    <div class="nl-form">
+      <input class="nl-input" placeholder="Your email address" type="email" />
+      <button class="btn-gold">Subscribe</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-logo">Luxora</div>
+    <div class="footer-links">
+      <a>Privacy</a>
+      <a>Returns</a>
+      <a>Warranty</a>
+      <a>FAQs</a>
+    </div>
+    <div class="footer-copy">© 2026 Luxora. All rights reserved.</div>
+  </footer>
+
+</div>
